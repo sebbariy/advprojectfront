@@ -1,12 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { 
-  Typography, 
+  // Typography, 
   Grid, 
-  Card, 
-  CardMedia, 
-  CardContent, 
-  CardActions, 
+  // Card, 
+  // CardMedia, 
+  // CardContent, 
+  // CardActions, 
   Button 
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
