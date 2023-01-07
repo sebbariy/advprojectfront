@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -29,7 +29,9 @@ const theme = createTheme({
   },
 });
 
+
 export default function SignUp() {
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,13 +46,13 @@ export default function SignUp() {
       auth: "0",
     }
     fetch("http://localhost:8080/user/addUser",{
-        method:"POST",
-        headers:{"Content-type":"application/json"},
-        body:JSON.stringify(user)
-    
+      method:"POST",
+      headers:{"Content-type":"application/json"},
+      body:JSON.stringify(user)
     }).then((res)=>{  
-        console.log(res)
-        console.log(user)
+      console.log(res);
+      console.log(user);
+      navigate("/login");
     })
   };
 
@@ -133,7 +135,6 @@ export default function SignUp() {
                 </FormControl>
               </Grid>
             </Grid>
-            <Link to="/login">
             <Button
               type="submit"
               fullWidth
@@ -142,7 +143,6 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            </Link>
             <Grid container>
               <Grid item>
               <Link to="/login">Already have an account? Sign in</Link>
