@@ -1,37 +1,35 @@
-import { useState } from "react";
 
-
-class JobService{
+class UserService{
 
 
     //**Method to get all employee from our api or database */
 
     /**MEthod to save employee */
-    saveJob(jobData){
+    saveUser(userData){
 
-        return       fetch("http://localhost:8080/job/addJob",{
+        return       fetch("http://localhost:8080/user/addUser",{
          method:"POST",
          headers:{"Content-type":"application/json"},
-         body:JSON.stringify(jobData)
+         body:JSON.stringify(userData)
      
      });
     }
-    updateJob(jobid, jobData){
+    updateUser(userid, userData){
       
-        return fetch(`http://localhost:8080/job/${jobid}`,{
+        return fetch(`http://localhost:8080/user/${userid}`,{
          method:"PUT",
          headers:{"Content-type":"application/json"},
-         body:JSON.stringify(jobData)
+         body:JSON.stringify(userData)
      });
     }
-    getJobById(jobid){
-      return fetch(`http://localhost:8080/job/${jobid}`).then(
+    getUserById(userid){
+      return fetch(`http://localhost:8080/user/${userid}`).then(
          res => res
       ).catch(console.log("error"));
     }
 
 }
-export default new JobService();
+export default new UserService();
 
 /*jobService class contenant tout les methodes en relation avec job*/
 /* et faire de même pour les autres compenants*/

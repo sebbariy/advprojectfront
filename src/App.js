@@ -9,13 +9,22 @@ import Register from './components/Register'
 import { createTheme } from '@mui/material/styles';
 import { MuiThemeProvider } from '@material-ui/core';
 import ShowJob from './components/ShowJob';
-import Job from './components/Job';
-import JobCard from './components/JobCard';
-import Student from './components/Student';
+// import Job from './components/Job';
 import ShowJobAdmin from './components/ShowJobAdmin';
 import AddJobComp from './components/AddJobComp';
-import { Add } from '@material-ui/icons';
-
+import Security1 from './service/Security';
+import ShowBusiness from './components/ShowBusiness';
+import ShowBusinessAdmin from './components/ShowBusinessAdmin';
+import AddBusinessComp from './components/AddBusinessComp';
+import ShowStudent from './components/ShowStudent'
+import ShowStudentAdmin from './components/ShowStudentAdmin';
+import AddStudentComp from './components/AddStudentComp';
+import ShowTourism from './components/ShowTourism';
+import ShowTourismAdmin from './components/ShowTourismAdmin';
+import AddTourismComp from './components/AddTourismComp';
+import ShowUserAdmin from './components/ShowUserAdmin';
+import AddUserComp from './components/AddUserComp';
+import WaitForAuth from './components/WaitForAuth';
 
 const theme = createTheme({
   palette: {
@@ -34,29 +43,37 @@ const theme = createTheme({
   },
 });
 function App() {
-  
-  /*const navigate = useNavigate();
-
-  useEffect(() => {
-    const User = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
-
-    if (!User) navigate('/login');
-  }, []); */
-
-
   const value=window.location.pathname;
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
         { !(value==="/login" || value==="/register") && <AppBar/> }
+        { !(value==="/login" || value==="/register" || value==="/") && <Security1/> }
         <Routes>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/useradmin" element={<ShowUserAdmin/>}/>
+          <Route path="/useradminadd" element={<AddUserComp/>}/>
+          <Route path="/useradminadd/:userid" element={<AddUserComp/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route exact path="/" element={<WelcomePage/>}/>
           <Route path="/job" element={<ShowJob/>}/>
           <Route path="/jobadmin" element={<ShowJobAdmin/>}/>
-          <Route path="/jobadminadd" element={<Job/>}/>
-          <Route path="/add-jobadminadd/:id" element={<AddJobComp/>}/>
+          <Route path="/jobadminadd" element={<AddJobComp/>}/>
+          <Route path="/jobadminadd/:jobid" element={<AddJobComp/>}/>
+          <Route path="/business" element={<ShowBusiness/>}/>
+          <Route path="/businessadmin" element={<ShowBusinessAdmin/>}/>
+          <Route path="/businessadminadd" element={<AddBusinessComp/>}/>
+          <Route path="/businessadminadd/:busid" element={<AddBusinessComp/>}/>
+          <Route path="/student" element={<ShowStudent/>}/>
+          <Route path="/studentadmin" element={<ShowStudentAdmin/>}/>
+          <Route path="/studentadminadd" element={<AddStudentComp/>}/>
+          <Route path="/studentadminadd/:schoolid" element={<AddStudentComp/>}/>
+          <Route path="/tourism" element={<ShowTourism/>}/>
+          <Route path="/tourismadmin" element={<ShowTourismAdmin/>}/>
+          <Route path="/tourismadminadd" element={<AddTourismComp/>}/>
+          <Route path="/tourismadminadd/:tourismid" element={<AddTourismComp/>}/>
+          <Route path="/wait" element={<WaitForAuth/>}/>
+         
         </Routes>
       </BrowserRouter>
     </MuiThemeProvider>

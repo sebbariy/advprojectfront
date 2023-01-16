@@ -61,7 +61,8 @@ export default function SignIn() {
     const tempUser = JSON.parse(localStorage.getItem("User"));
     setUser(tempUser);
     if ( tempUser?.userid > 0 ) {
-      const path = (tempUser.auth == 0) ? "/wait":(tempUser.role == "Admin") ? "/admin":"/tourism";
+      console.log(tempUser);
+      const path = (tempUser.auth == 0) ? "/wait":(tempUser.role == "Admin") ? "/tourismadmin":"/tourism";
       navigate(path);
     }
 
@@ -99,7 +100,7 @@ export default function SignIn() {
         res.json().then((response) => {
           localStorage.setItem("User", JSON.stringify(response));
           setUser(response);
-          const path = (user.auth == 0) ? "/wait":(user.role == "Admin") ? "/admin":"/tourism";
+          const path = (response.auth == 0) ? "/wait":(response.role == "Admin") ? "/tourismadmin":"/tourism";
           navigate(path);
         }).catch(() => {
           setError(true);

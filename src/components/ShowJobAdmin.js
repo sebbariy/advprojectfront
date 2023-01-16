@@ -60,7 +60,7 @@ const ShowJobAdmin = () => {
                 <td>{job.description}</td>
                 <td>{job.link}</td>
                 <td>
-                  <a  className='btn btn-info' href="">Update</a> {" "}
+                  <Link  to={`/jobadminadd/${job.jobid}`} ><a  key={job.jobid} className='btn btn-info' href="">Update</a></Link> {" "}
                   <a onClick={(e)=>deleteJob(e,job.jobid)} className='btn btn-danger' href="">Delete</a>
                 </td>
               </tr>)}

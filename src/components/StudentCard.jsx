@@ -23,7 +23,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const JobCard = (props) => {
+const StudentCard = (props) => {
   
   const [expanded, setExpanded] = React.useState(false);
 
@@ -37,18 +37,15 @@ const JobCard = (props) => {
         component="img"
         height="50"
         width="150"
-        image={props.companyImg}
-        alt="companyImg"
+        image={props.schoolImg}
+        alt="schoolImg"
       />
       <CardContent >
         <Typography variant="h5" color="text.primary">
-          {props.jobName}
+          {props.schoolName}
         </Typography>
         <Typography variant="h7" color="text.primary">
-          {props.companyName}
-        </Typography>
-        <Typography variant="p" color="text.primary">
-          <br/>Casablanca, Morocco
+          {props.location}
         </Typography>
       </CardContent>
 
@@ -61,7 +58,7 @@ const JobCard = (props) => {
             type="button"
             color='primary'
             variant="contained"
-            onClick={ () => window.open(props.jobLink,"_blank")}
+            onClick={ () => window.open(props.link,"_blank")}
           >
             Apply
           </Button>
@@ -78,7 +75,7 @@ const JobCard = (props) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Job Description:</Typography>
+          <Typography paragraph>Description:</Typography>
           <Typography>
             {props.description}
           </Typography>
@@ -89,4 +86,4 @@ const JobCard = (props) => {
 }
 
 
-export default JobCard
+export default StudentCard

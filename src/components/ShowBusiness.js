@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Container ,Paper} from '@material-ui/core';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import JobCard from './JobCard';
+import BusinessCard from './BusinessCard';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 
@@ -17,18 +17,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Job() {
+export default function Business() {
   const paperStyle={padding:'50px 20px', width:600,margin:"20px auto"}
-  const[jobs,setJobs]=useState([])
+  const[bus,setBus]=useState([])  
    const classes = useStyles();
 
    
 
    useEffect(()=>{
-    fetch("http://localhost:8080/job/getAllJobs")
+    fetch("http://localhost:8080/business/getAll")
     .then(res=>res.json())
     .then((result)=>{
-      setJobs(result);
+      setBus(result);
     }
   )
   },[])
@@ -51,15 +51,15 @@ export default function Job() {
           alignItems: 'center',
         }}
       >
-      <h1>Open Jobs</h1>
+      <h1>Business News</h1>
       {/* /<Paper elevation={20} style={paperStyle}> 
       </Paper>*/}
       </Box>
       <Box sx={{ width: '100%' }}>
           <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {jobs.map(job=>(
+          {bus.map(bus=>(
             <Grid item xs={3}>
-                <JobCard  jobName={job.jobname} jobLink={job.link} description={job.description} companyImg={job.companyImg} companyName={job.companyname}/>
+                <BusinessCard  busname={bus.busname} link={bus.link} description={bus.description}/>
             </Grid>
         ))}
           </Grid>

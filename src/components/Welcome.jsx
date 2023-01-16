@@ -1,17 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { 
-  // Typography, 
   Grid, 
-  // Card, 
-  // CardMedia, 
-  // CardContent, 
-  // CardActions, 
   Button 
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
-
+// import { useNavigate } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -75,6 +70,9 @@ const styles = {
 
 const WelcomePage = () => {
   const classes = useStyles();
+  // const navigate = useNavigate();
+
+
   return (
     <div className={classes.root} style={styles.pageContainer}>
       <Grid container style={styles.container}>

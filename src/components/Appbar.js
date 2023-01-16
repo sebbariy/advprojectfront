@@ -12,12 +12,17 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 // import LoginIcon from '@mui/icons-material/Login';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+// const pages = [
+//   "tourism",
+//   "student",
+//   "job",
+//   "business",
+// ];
+// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const styles = {
   logo: {
     width: "150px",
@@ -27,11 +32,38 @@ const styles = {
 }
 
 function ResponsiveAppBar() {
-  const [User, setUser] = useState({});
+  const navigate = useNavigate();
+  
+  const [ loggedUser, setUser ] = useState({});
+  const [ pages, setPages ] = useState([]);
 
   useEffect(() => {
-    setUser(localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear())
-  }, []);
+    // console.log();
+    console.log(loggedUser);
+    setUser(localStorage.getItem('User') !== 'undefined' ? JSON.parse(localStorage.getItem('User')) : localStorage.clear())
+    const user = JSON.parse(localStorage.getItem('User'));
+    if ( user ) {
+      if ( user.auth === 0 ) {
+        setPages([]);
+      }
+      else if ( user.role === "Admin" ) {
+        setPages([
+          "tourismadmin",
+          "studentadmin",
+          "jobadmin",
+          "businessadmin",
+          "useradmin",
+        ]);
+      } else {
+        setPages([
+          "tourism",
+          "student",
+          "job",
+          "business",
+        ]);
+      }
+    }
+  }, [loggedUser]);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -51,6 +83,17 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const handleLogOutButton = () => {
+    localStorage.removeItem("User");
+    navigate("/login");
+    setAnchorElUser(null);
+  };
+
+  const navItemClicked = (link) => {
+    navigate("/" + link);
+    setAnchorElUser(null);
+  }
+
   return (
     <AppBar position="fixed" style={{ backgroundColor: "#8585856e" }}>
       <Container maxWidth="xl">
@@ -60,7 +103,7 @@ function ResponsiveAppBar() {
           </Link>
 
           {
-            User && (
+            loggedUser && (
               <React.Fragment>
                 <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                   <IconButton
@@ -92,7 +135,7 @@ function ResponsiveAppBar() {
                     }}
                   >
                     {pages.map((page) => (
-                      <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <MenuItem key={page} onClick={() => { navItemClicked(page) }}>
                         <Typography textAlign="center">{page}</Typography>
                       </MenuItem>
                     ))}
@@ -103,7 +146,7 @@ function ResponsiveAppBar() {
                   {pages.map((page) => (
                     <Button
                       key={page}
-                      onClick={handleCloseNavMenu}
+                      onClick={() => { navItemClicked(page) }}
                       sx={{ my: 2, color: 'white', display: 'block' }}
                     >
                       {page}
@@ -132,11 +175,9 @@ function ResponsiveAppBar() {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                   >
-                    {settings.map((setting) => (
-                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                        <Typography textAlign="center">{setting}</Typography>
-                      </MenuItem>
-                    ))}
+                    <MenuItem onClick={handleLogOutButton}>
+                      <Typography textAlign="center">Logout</Typography>
+                    </MenuItem>
                   </Menu>
                 </Box>
               </React.Fragment>
